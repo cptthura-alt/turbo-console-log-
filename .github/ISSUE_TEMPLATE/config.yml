@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Issue
+    url: https://github.com/cptthura-alt/turbo-console-log-/security
+    about: Please report security vulnerabilities privately
+  - name: Question or Discussion
+    url: https://github.com/cptthura-alt/turbo-console-log-/discussions
+    about: Ask questions or start discussions about the project
