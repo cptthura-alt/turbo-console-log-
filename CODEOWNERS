@@ -1,0 +1,13 @@
+# CODEOWNERS file
+# These owners will be the default owners for everything in the repo.
+# They will be requested for review when someone opens a pull request.
+
+# Repository maintainers
+* @cptthura-alt
+
+# GitHub workflows require approval from repository administrators
+/.github/ @cptthura-alt
+
+# Package configuration files require careful review
+/package.json @cptthura-alt
+/package-lock.json @cptthura-alt
