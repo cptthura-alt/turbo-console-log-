@@ -95,11 +95,18 @@ jobs:
     
     - name: Verify CODEOWNERS file exists
       run: |
-        if [ -f "CODEOWNERS" ]; then
+        if [ -f "CODEOWNERS" ] || [ -f ".github/CODEOWNERS" ] || [ -f "docs/CODEOWNERS" ]; then
           echo "✓ CODEOWNERS file exists"
-          echo "  Location: CODEOWNERS"
+          if [ -f "CODEOWNERS" ]; then
+            echo "  Location: CODEOWNERS"
+          elif [ -f ".github/CODEOWNERS" ]; then
+            echo "  Location: .github/CODEOWNERS"
+          else
+            echo "  Location: docs/CODEOWNERS"
+          fi
         else
-          echo "✗ CODEOWNERS file not found"
+          echo "✗ CODEOWNERS file not found in any valid location"
+          echo "  Expected locations: CODEOWNERS, .github/CODEOWNERS, or docs/CODEOWNERS"
           exit 1
         fi
     

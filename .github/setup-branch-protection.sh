@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Branch Protection Setup Script
-# This script helps repository administrators configure branch protection rules
+# Branch Protection Validation Script
+# This script validates branch protection requirements and displays configuration
+# For applying settings, use GitHub web interface or API (see BRANCH_PROTECTION_GUIDE.md)
 # Requires: GitHub CLI (gh) installed and authenticated
 # Usage: ./setup-branch-protection.sh [--dry-run] [--branch main]
 
@@ -11,6 +12,7 @@ set -e
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;36m'
 NC='\033[0m' # No Color
 
 # Default values
@@ -66,7 +68,7 @@ print_warning() {
 }
 
 print_info() {
-  echo -e "${YELLOW}ℹ${NC} $1"
+  echo -e "${BLUE}ℹ${NC} $1"
 }
 
 # Check if GitHub CLI is installed
@@ -148,22 +150,19 @@ echo "8. Require conversation resolution: yes"
 echo ""
 
 if [ "$DRY_RUN" = false ]; then
-  print_info "Applying branch protection rules..."
-  
-  # Note: The actual API call would go here
-  # This is a template that needs to be customized based on GitHub API
+  print_info "Validation complete."
   
   echo ""
-  print_warning "Automatic application via script is not fully implemented."
-  print_info "Please apply settings manually using one of these methods:"
+  print_warning "Note: This script validates configuration but does not apply settings."
+  print_info "To apply branch protection rules, use one of these methods:"
   echo ""
   echo "Method 1: GitHub Web Interface"
   echo "  1. Go to: https://github.com/$REPO_OWNER/$REPO_NAME/settings/branches"
   echo "  2. Click 'Add rule' or edit existing rule for '$BRANCH'"
   echo "  3. Configure settings as shown above"
   echo ""
-  echo "Method 2: GitHub CLI (manual)"
-  echo "  See: .github/BRANCH_PROTECTION_GUIDE.md"
+  echo "Method 2: GitHub CLI with API"
+  echo "  See: .github/BRANCH_PROTECTION_GUIDE.md for detailed instructions"
   echo ""
   echo "Configuration reference: .github/branch-protection.yml"
   
