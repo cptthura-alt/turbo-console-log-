@@ -1,11 +1,50 @@
+# Code Owners File
 # This file defines code ownership for the repository
 # Code owners will be automatically requested for review when someone opens a pull request
+# More information: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
+# =============================================================================
+# Default Ownership
+# =============================================================================
 # Default owners for everything in the repo
+# These owners will be requested for review unless a later match takes precedence
 * @cptthura-alt
 
-# Specific ownership for GitHub workflows and configurations
+# =============================================================================
+# GitHub Configuration and Workflows
+# =============================================================================
+# Ownership for GitHub Actions workflows and repository configuration
 /.github/ @cptthura-alt
+/.github/workflows/ @cptthura-alt
+/.github/ISSUE_TEMPLATE/ @cptthura-alt
 
-# Ownership for documentation
+# =============================================================================
+# Documentation
+# =============================================================================
+# Ownership for all documentation files
 *.md @cptthura-alt
+/README.md @cptthura-alt
+/CONTRIBUTING.md @cptthura-alt
+/SECURITY.md @cptthura-alt
+
+# =============================================================================
+# Application Code
+# =============================================================================
+# Ownership for main application files
+/index.js @cptthura-alt
+/haikus.json @cptthura-alt
+
+# =============================================================================
+# Configuration Files
+# =============================================================================
+# Ownership for package management and configuration
+/package.json @cptthura-alt
+/package-lock.json @cptthura-alt
+/.gitignore @cptthura-alt
+
+# =============================================================================
+# Frontend Assets
+# =============================================================================
+# Ownership for public assets and views
+/public/ @cptthura-alt
+/views/ @cptthura-alt
