@@ -1,0 +1,32 @@
+# Dependency Review Workflow
+# This workflow scans pull requests for dependency changes and checks for security vulnerabilities
+# It helps prevent the introduction of vulnerable dependencies
+
+name: 'Dependency Review'
+
+on:
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Dependency Review
+      uses: actions/dependency-review-action@v4
+      with:
+        # Fail the action if vulnerabilities are found
+        fail-on-severity: moderate
+        # Show all vulnerabilities in the PR comment
+        comment-summary-in-pr: always
+        # Deny licenses (optional - adjust based on your needs)
+        deny-licenses: GPL-3.0, AGPL-3.0
+        # Allow licenses (optional)
+        # allow-licenses: MIT, Apache-2.0, BSD-3-Clause
