@@ -1,0 +1,125 @@
+name: Access Request
+description: Request repository access or permission change
+title: "[ACCESS REQUEST] "
+labels: ["access-request", "security"]
+assignees:
+  - cptthura-alt
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Repository Access Request
+        
+        Use this form to request access to the repository or to request a change to your current access level.
+        
+        Please review our [Access Management Policy](.github/ACCESS_MANAGEMENT.md) before submitting.
+
+  - type: input
+    id: github-username
+    attributes:
+      label: GitHub Username
+      description: Your GitHub username
+      placeholder: "@username"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: request-type
+    attributes:
+      label: Request Type
+      description: What type of access change are you requesting?
+      options:
+        - New Access - I don't currently have access
+        - Elevated Access - I need higher permissions
+        - Reduced Access - I want to reduce my permissions
+        - Access Removal - I want to remove my access
+        - Temporary Access - I need temporary access for a specific task
+    validations:
+      required: true
+
+  - type: dropdown
+    id: access-level
+    attributes:
+      label: Requested Access Level
+      description: What level of access do you need?
+      options:
+        - Read - View code, create issues
+        - Triage - Manage issues and PRs
+        - Write - Push code, create branches
+        - Maintain - Manage releases and some settings
+        - Admin - Full repository control
+    validations:
+      required: true
+
+  - type: textarea
+    id: justification
+    attributes:
+      label: Justification
+      description: Why do you need this access level? What will you be working on?
+      placeholder: |
+        Please explain:
+        - What you'll be contributing
+        - Why you need this access level
+        - How it relates to the project
+    validations:
+      required: true
+
+  - type: input
+    id: duration
+    attributes:
+      label: Duration
+      description: How long do you need this access? (Leave blank for permanent)
+      placeholder: "e.g., 3 months, until project completion, permanent"
+
+  - type: textarea
+    id: sponsor
+    attributes:
+      label: Sponsor/Reference
+      description: If applicable, who is sponsoring or can vouch for this request?
+      placeholder: "@username or team name"
+
+  - type: checkboxes
+    id: requirements
+    attributes:
+      label: Requirements Acknowledgment
+      description: Please confirm you understand and agree to the following
+      options:
+        - label: I have read and understand the [Access Management Policy](.github/ACCESS_MANAGEMENT.md)
+          required: true
+        - label: I will enable Two-Factor Authentication (2FA) on my GitHub account (required for Triage, Write, Maintain, and Admin access)
+          required: true
+        - label: I understand that access will be reviewed quarterly and may be revoked if no longer needed
+          required: true
+        - label: I agree to follow the [Security Policy](SECURITY.md) and secure coding practices
+          required: true
+        - label: I will not share my credentials or access with others
+          required: true
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any other information that would help with this request?
+      placeholder: Previous contributions, relevant experience, etc.
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## What Happens Next?
+        
+        1. A repository administrator will review your request
+        2. They may ask follow-up questions or request additional justification
+        3. If approved, you'll receive a collaboration invitation
+        4. **You must enable 2FA before accepting the invitation** (for Triage+ access)
+        5. Once you accept, you'll have the requested access level
+        
+        ## Processing Time
+        
+        - **Routine requests**: 2-3 business days
+        - **Elevated access requests**: 3-5 business days (requires additional review)
+        - **Urgent requests**: Please mention urgency in justification
+        
+        Thank you for following our security procedures!

@@ -1,0 +1,276 @@
+# Security Audit Workflow
+# Automates security checks and access auditing for the repository
+
+name: Security Audit
+
+on:
+  # Run on a schedule (monthly)
+  schedule:
+    - cron: '0 9 1 * *'  # 9 AM on the 1st of every month
+  
+  # Allow manual trigger
+  workflow_dispatch:
+  
+  # Run on security-related changes
+  push:
+    paths:
+      - '.github/ACCESS_MANAGEMENT.md'
+      - '.github/workflows/security-audit.yml'
+      - 'SECURITY.md'
+      - 'CODEOWNERS'
+
+jobs:
+  security-audit:
+    name: Repository Security Audit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      issues: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Check for security policy
+        run: |
+          echo "Checking for required security documentation..."
+          FILES=("SECURITY.md" ".github/ACCESS_MANAGEMENT.md" "CODEOWNERS")
+          MISSING=()
+          
+          for file in "${FILES[@]}"; do
+            if [ ! -f "$file" ]; then
+              MISSING+=("$file")
+            fi
+          done
+          
+          if [ ${#MISSING[@]} -ne 0 ]; then
+            echo "❌ Missing required security files:"
+            printf '%s\n' "${MISSING[@]}"
+            exit 1
+          else
+            echo "✅ All required security documentation is present"
+          fi
+      
+      - name: Audit branch protection status
+        run: |
+          echo "Branch protection audit requires GitHub API access with admin permissions."
+          echo "To complete this audit, manually verify:"
+          echo "  1. Branch protection is enabled on main/master branches"
+          echo "  2. Required reviewers are configured"
+          echo "  3. Status checks are required before merge"
+          echo "  4. Force pushes are blocked"
+          echo "  5. Branch deletion is restricted"
+          echo ""
+          echo "See: https://github.com/${{ github.repository }}/settings/branches"
+      
+      - name: Check dependency vulnerabilities
+        run: |
+          echo "Checking for known vulnerabilities in dependencies..."
+          if [ -f "package-lock.json" ]; then
+            npm audit --audit-level=moderate || {
+              echo "⚠️  Vulnerabilities found in dependencies"
+              echo "Run 'npm audit fix' to resolve automatically fixable issues"
+              exit 0
+            }
+            echo "✅ No moderate or higher vulnerabilities found"
+          fi
+      
+      - name: Verify 2FA documentation
+        run: |
+          echo "Verifying 2FA requirements are documented..."
+          if grep -q "two-factor\|2FA" .github/ACCESS_MANAGEMENT.md SECURITY.md 2>/dev/null; then
+            echo "✅ 2FA requirements are documented"
+          else
+            echo "⚠️  2FA requirements should be documented in security policies"
+            exit 1
+          fi
+      
+      - name: Check for sensitive files
+        run: |
+          echo "Checking for potentially sensitive files..."
+          SENSITIVE_PATTERNS=(
+            "*.pem"
+            "*.key"
+            "*.p12"
+            "*.pfx"
+            "*.env"
+            ".env.*"
+            "*secret*"
+            "*password*"
+            "credentials"
+          )
+          
+          FOUND=false
+          for pattern in "${SENSITIVE_PATTERNS[@]}"; do
+            if find . -name "$pattern" -not -path "*/node_modules/*" -not -path "*/.git/*" | grep -q .; then
+              echo "⚠️  Found potential sensitive files matching: $pattern"
+              find . -name "$pattern" -not -path "*/node_modules/*" -not -path "*/.git/*"
+              FOUND=true
+            fi
+          done
+          
+          if [ "$FOUND" = false ]; then
+            echo "✅ No obvious sensitive files found in repository"
+          else
+            echo ""
+            echo "Please verify these files are properly gitignored or should be in the repository"
+          fi
+      
+      - name: Verify CODEOWNERS file
+        run: |
+          echo "Verifying CODEOWNERS configuration..."
+          if [ -f "CODEOWNERS" ]; then
+            echo "✅ CODEOWNERS file exists"
+            echo "Owners defined:"
+            grep -v "^#" CODEOWNERS | grep -v "^$" || echo "  (none found)"
+          else
+            echo "⚠️  No CODEOWNERS file found"
+            echo "Consider adding a CODEOWNERS file to automate review requests"
+            exit 1
+          fi
+      
+      - name: Check workflow permissions
+        run: |
+          echo "Auditing GitHub Actions workflow permissions..."
+          
+          # Check all workflow files
+          for workflow in .github/workflows/*.yml; do
+            if [ -f "$workflow" ]; then
+              echo "Checking: $workflow"
+              
+              # Check if permissions are explicitly defined
+              if grep -q "permissions:" "$workflow"; then
+                echo "  ✅ Permissions are explicitly defined"
+              else
+                echo "  ⚠️  No explicit permissions defined (uses default)"
+              fi
+              
+              # Check for overly broad permissions
+              if grep -A 10 "permissions:" "$workflow" | grep -q "write-all\|contents: write"; then
+                echo "  ⚠️  Workflow has broad write permissions - review if necessary"
+              fi
+            fi
+          done
+      
+      - name: Security audit summary
+        if: always()
+        run: |
+          echo "==================================="
+          echo "Security Audit Summary"
+          echo "==================================="
+          echo "Repository: ${{ github.repository }}"
+          echo "Audit Date: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          echo "Triggered by: ${{ github.event_name }}"
+          echo ""
+          echo "Manual Review Items:"
+          echo "  • Verify all collaborators have 2FA enabled"
+          echo "  • Review repository collaborators list"
+          echo "  • Check team access permissions"
+          echo "  • Audit deploy keys and personal access tokens"
+          echo "  • Review outside collaborator access"
+          echo "  • Verify branch protection rules are active"
+          echo ""
+          echo "Next Steps:"
+          echo "  1. Complete manual access audit using ACCESS_AUDIT_TEMPLATE.md"
+          echo "  2. Review and address any warnings from this workflow"
+          echo "  3. Document findings and actions taken"
+          echo "  4. Schedule next quarterly audit"
+          echo ""
+          echo "For detailed audit procedures, see:"
+          echo "  .github/ACCESS_MANAGEMENT.md"
+          echo "  .github/ACCESS_AUDIT_TEMPLATE.md"
+      
+      - name: Create audit reminder issue
+        if: github.event_name == 'schedule'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = `Quarterly Access Audit Due - ${new Date().toISOString().split('T')[0]}`;
+            const body = `## 🔒 Quarterly Access Audit Reminder
+            
+            It's time to perform the quarterly access audit for this repository.
+            
+            ### Audit Checklist
+            
+            - [ ] Review all repository collaborators
+            - [ ] Verify 2FA status for all users with write+ access
+            - [ ] Audit team access (if applicable)
+            - [ ] Review deploy keys and GitHub Apps
+            - [ ] Check branch protection rules
+            - [ ] Verify security features are enabled
+            - [ ] Remove inactive or unnecessary access
+            - [ ] Document findings using ACCESS_AUDIT_TEMPLATE.md
+            
+            ### Resources
+            
+            - [Access Management Policy](.github/ACCESS_MANAGEMENT.md)
+            - [Audit Template](.github/ACCESS_AUDIT_TEMPLATE.md)
+            - [Security Policy](SECURITY.md)
+            
+            ### Manual Verification Required
+            
+            The following items require manual verification in GitHub settings:
+            
+            1. **Collaborators & Teams**: Navigate to Settings → Collaborators
+            2. **2FA Status**: Verify at organization level
+            3. **Branch Protection**: Settings → Branches
+            4. **Deploy Keys**: Settings → Deploy keys
+            5. **GitHub Apps**: Settings → Integrations
+            
+            ### Completion
+            
+            Once audit is complete:
+            1. Fill out a copy of the audit template
+            2. Commit the audit report to the repository
+            3. Close this issue with a reference to the audit report
+            
+            **Due Date**: ${new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
+            `;
+            
+            // Check if an open audit issue already exists
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'security,audit'
+            });
+            
+            const existingIssue = issues.data.find(issue => 
+              issue.title.includes('Quarterly Access Audit')
+            );
+            
+            if (!existingIssue) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: title,
+                body: body,
+                labels: ['security', 'audit', 'documentation']
+              });
+              console.log('Created quarterly audit reminder issue');
+            } else {
+              console.log('Audit reminder issue already exists');
+            }
+
+  codeql-analysis:
+    name: CodeQL Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+          queries: security-and-quality
+      
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript"
