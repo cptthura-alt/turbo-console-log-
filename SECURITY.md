@@ -211,8 +211,9 @@ Before submitting a PR, ensure:
 - **npm audit**: Check for known vulnerabilities in dependencies
   ```bash
   npm audit
-  npm audit fix  # Apply automatic fixes
+  npm audit fix  # Apply automatic fixes (review changes first)
   ```
+  **Note**: Always review changes before applying `npm audit fix` as it may introduce breaking changes.
 
 - **Dependabot**: Automated dependency updates (enabled in this repo)
 - **GitHub Code Scanning**: Automated security analysis
