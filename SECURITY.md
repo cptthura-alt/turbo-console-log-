@@ -48,19 +48,19 @@ To help us better understand and resolve the issue, please include as much of th
 ### Example Report Format
 
 ```
-Subject: SECURITY: Cross-Site Scripting in Haiku Display
+Subject: SECURITY: Cross-Site Scripting in Content Display
 
 Vulnerability Type: Cross-Site Scripting (XSS)
 Severity: High
 Affected Component: /views/index.ejs, line 15
 
 Description:
-User-supplied haiku content is rendered without proper escaping,
+User-supplied content is rendered without proper escaping,
 allowing injection of malicious JavaScript.
 
 Reproduction Steps:
-1. Add a haiku with content: <script>alert('XSS')</script>
-2. Visit the homepage
+1. Add content with malicious payload: <script>alert('XSS')</script>
+2. Visit the affected page
 3. JavaScript executes in user's browser
 
 Impact:
@@ -68,8 +68,8 @@ Attackers could steal session cookies, perform actions as the user,
 or deface the page for other visitors.
 
 Suggested Fix:
-Use EJS's <%= %> syntax instead of <%- %> for user content to
-ensure automatic HTML escaping.
+Use EJS's <%= %> syntax instead of <%- %> for user-supplied content
+to ensure automatic HTML escaping.
 ```
 
 ## Response Timeline
