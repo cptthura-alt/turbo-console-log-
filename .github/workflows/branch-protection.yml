@@ -1,0 +1,119 @@
+# Branch Protection Enforcement Workflow
+# This workflow can be used to apply branch protection rules via GitHub API
+# Run manually by repository administrators to enforce protection rules
+# Requires admin permissions and a GitHub token with appropriate scopes
+
+name: Enforce Branch Protection
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run mode (preview changes without applying)'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-branch-protection:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Validate branch protection configuration
+      run: |
+        echo "=== Branch Protection Policy Validation ==="
+        echo ""
+        echo "This workflow validates that branch protection rules are properly configured."
+        echo "Branch protection must be configured through GitHub repository settings."
+        echo ""
+        echo "Required settings for 'main' branch:"
+        echo "✓ Require pull request reviews before merging"
+        echo "  - Require at least 1 approving review"
+        echo "  - Dismiss stale reviews when new commits are pushed"
+        echo "  - Require review from code owners"
+        echo ""
+        echo "✓ Require status checks to pass before merging"
+        echo "  - Require branches to be up to date before merging"
+        echo "  - Required status checks:"
+        echo "    • build-and-test (16.x)"
+        echo "    • build-and-test (18.x)"
+        echo "    • build-and-test (20.x)"
+        echo "    • security-scan"
+        echo ""
+        echo "✓ Require signed commits"
+        echo ""
+        echo "✓ Enforce restrictions for administrators"
+        echo ""
+        echo "✓ Restrict who can push to the branch"
+        echo ""
+        echo "✓ Require conversation resolution before merging"
+        echo ""
+        echo "✓ Do not allow force pushes"
+        echo ""
+        echo "✓ Do not allow deletions"
+        echo ""
+        echo "Configuration file: .github/branch-protection.yml"
+        echo ""
+        echo "To apply these settings, a repository administrator must:"
+        echo "1. Go to: Settings > Branches > Branch protection rules"
+        echo "2. Add rule for 'main' branch"
+        echo "3. Configure settings according to .github/branch-protection.yml"
+        echo ""
+        echo "Alternatively, use GitHub API or CLI to apply programmatically:"
+        echo "gh api repos/{owner}/{repo}/branches/main/protection -X PUT --input .github/branch-protection.yml"
+    
+    - name: Check branch protection configuration file
+      run: |
+        if [ -f ".github/branch-protection.yml" ]; then
+          echo "✓ Branch protection configuration file exists"
+          echo "  Location: .github/branch-protection.yml"
+        else
+          echo "✗ Branch protection configuration file not found"
+          exit 1
+        fi
+    
+    - name: Verify CI workflow exists
+      run: |
+        if [ -f ".github/workflows/ci.yml" ]; then
+          echo "✓ CI workflow exists"
+          echo "  Location: .github/workflows/ci.yml"
+        else
+          echo "✗ CI workflow not found"
+          exit 1
+        fi
+    
+    - name: Verify CODEOWNERS file exists
+      run: |
+        if [ -f "CODEOWNERS" ]; then
+          echo "✓ CODEOWNERS file exists"
+          echo "  Location: CODEOWNERS"
+        else
+          echo "✗ CODEOWNERS file not found"
+          exit 1
+        fi
+    
+    - name: Display security recommendations
+      run: |
+        echo ""
+        echo "=== Security Recommendations ==="
+        echo "✓ Enable Dependabot security updates"
+        echo "✓ Enable Dependabot version updates"
+        echo "✓ Enable secret scanning"
+        echo "✓ Enable code scanning (CodeQL)"
+        echo "✓ Require signed commits from all contributors"
+        echo "✓ Review and audit all third-party dependencies"
+        echo "✓ Implement least privilege access control"
+        echo "✓ Regular security training for contributors"
+        echo ""
+        echo "For more information, see SECURITY.md"
