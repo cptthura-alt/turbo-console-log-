@@ -13,12 +13,12 @@ This document tracks security vulnerabilities that have been identified and reso
 **Severity**: HIGH
 
 **Affected Packages**:
-- `semver` versions 7.0.0 - 7.5.1
+- `semver` versions < 7.5.2 (vulnerability affects versions prior to 7.5.2)
 - `simple-update-notifier` versions 1.0.7 - 1.1.0  
 - `nodemon` versions 2.0.19 - 2.0.22
 
 **Resolution**:
-- Updated `nodemon` from `2.0.22` to `3.1.11`
+- Updated `nodemon` from `^2.0.19` to `^3.1.11` (package-lock.json showed 2.0.22 installed)
 - This update includes:
   - `semver` updated to `7.7.3` (patched version)
   - `simple-update-notifier` updated to `2.0.0`
