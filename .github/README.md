@@ -70,7 +70,7 @@ The following features **must be enabled manually** in GitHub repository setting
 ### 📖 How to Enable Manual Features
 
 See detailed step-by-step instructions in:
-**[`.github/MANUAL_SECURITY_SETUP.md`](.github/MANUAL_SECURITY_SETUP.md)**
+**[`MANUAL_SECURITY_SETUP.md`](MANUAL_SECURITY_SETUP.md)**
 
 **Quick Steps**:
 1. Go to: **Settings** → **Code security and analysis**
@@ -84,18 +84,18 @@ This repository includes comprehensive security documentation:
 
 | Document | Purpose |
 |----------|---------|
-| [`.github/MANUAL_SECURITY_SETUP.md`](.github/MANUAL_SECURITY_SETUP.md) | Step-by-step guide for manual settings |
-| [`.github/SECURITY_FEATURES.md`](.github/SECURITY_FEATURES.md) | Detailed feature descriptions |
-| [`SECURITY_CONFIGURATION_SUMMARY.md`](SECURITY_CONFIGURATION_SUMMARY.md) | Complete configuration summary |
-| [`SECURITY.md`](SECURITY.md) | Vulnerability reporting policy |
-| [`.github/scripts/verify-security-setup.sh`](.github/scripts/verify-security-setup.sh) | Verification script |
+| [`MANUAL_SECURITY_SETUP.md`](MANUAL_SECURITY_SETUP.md) | Step-by-step guide for manual settings |
+| [`SECURITY_FEATURES.md`](SECURITY_FEATURES.md) | Detailed feature descriptions |
+| [`SECURITY_CONFIGURATION_SUMMARY.md`](../SECURITY_CONFIGURATION_SUMMARY.md) | Complete configuration summary |
+| [`SECURITY.md`](../SECURITY.md) | Vulnerability reporting policy |
+| [`scripts/verify-security-setup.sh`](scripts/verify-security-setup.sh) | Verification script |
 
 ## 🚀 Quick Start
 
 ### For Repository Admins
 
 1. **Enable manual features** (5 minutes):
-   - Follow [`.github/MANUAL_SECURITY_SETUP.md`](.github/MANUAL_SECURITY_SETUP.md)
+   - Follow [`MANUAL_SECURITY_SETUP.md`](MANUAL_SECURITY_SETUP.md)
    - Enable Secret Scanning, Dependabot Alerts, Security Updates
 
 2. **Wait for workflows** to run automatically:
@@ -186,7 +186,7 @@ After full enablement:
 ## ✅ Next Steps
 
 1. ✅ **Automated features configured** - All workflow files are in place
-2. ⚠️ **Enable manual features** - Follow [`.github/MANUAL_SECURITY_SETUP.md`](.github/MANUAL_SECURITY_SETUP.md)
+2. ⚠️ **Enable manual features** - Follow [`MANUAL_SECURITY_SETUP.md`](MANUAL_SECURITY_SETUP.md)
 3. ⏳ **Wait for first runs** - Security workflows will run automatically
 4. 🔍 **Review Security tab** - Check for alerts after initial scans
 5. 🛠️ **Address findings** - Fix any identified vulnerabilities
@@ -195,7 +195,7 @@ After full enablement:
 ## 📞 Support
 
 For questions or issues:
-- **Security Vulnerabilities**: See [SECURITY.md](SECURITY.md)
+- **Security Vulnerabilities**: See [SECURITY.md](../SECURITY.md)
 - **Configuration Help**: Review documentation above
 - **GitHub Support**: [GitHub Support Portal](https://support.github.com/)
 

@@ -150,7 +150,7 @@ if [ -f "index.js" ]; then
     ((PASSED++))
     
     # Check for potential security issues (basic checks)
-    if ! grep -q "eval(" index.js 2>/dev/null; then
+    if ! grep -qE 'eval\s*\(' index.js 2>/dev/null; then
         echo -e "${GREEN}✅ PASS${NC}: No eval() usage detected"
         ((PASSED++))
     else
@@ -158,11 +158,11 @@ if [ -f "index.js" ]; then
         ((WARNINGS++))
     fi
     
-    if ! grep -q "innerHTML" index.js 2>/dev/null; then
-        echo -e "${GREEN}✅ PASS${NC}: No innerHTML usage detected"
+    if ! grep -qE 'innerHTML|outerHTML|document\.write|insertAdjacentHTML' index.js 2>/dev/null; then
+        echo -e "${GREEN}✅ PASS${NC}: No dangerous HTML manipulation detected"
         ((PASSED++))
     else
-        echo -e "${YELLOW}⚠️  WARN${NC}: innerHTML usage detected - potential XSS risk"
+        echo -e "${YELLOW}⚠️  WARN${NC}: Dangerous HTML manipulation detected - potential XSS risk"
         ((WARNINGS++))
     fi
 fi
