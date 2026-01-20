@@ -38,6 +38,8 @@ Fixes #
 - [ ] I have made corresponding changes to the documentation
 - [ ] My changes generate no new warnings
 - [ ] I have checked for any security vulnerabilities
+- [ ] No secrets or credentials are committed
+- [ ] `npm audit` passes with no high/critical vulnerabilities
 
 ## Screenshots (if applicable)
 <!-- Add screenshots to help explain your changes -->

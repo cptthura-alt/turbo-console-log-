@@ -314,4 +314,18 @@ We're here to help! If you have questions about contributing:
 - Reach out to the maintainers
 - Check existing issues and PRs for similar questions
 
+## Security Considerations
+
+When contributing, please keep security in mind:
+
+- **Never commit secrets, API keys, or credentials**
+- **Run `npm audit` before submitting PRs** to check for vulnerabilities
+- **Review automated security findings** from CodeQL, Dependabot, and other tools
+- **Address security vulnerabilities promptly** if flagged in your PR
+- **Follow security best practices** outlined in [SECURITY.md](SECURITY.md)
+
+For security vulnerability reporting, please see [SECURITY.md](SECURITY.md) - do not report security issues through public issues.
+
+---
+
 Thank you for contributing to Haikus for Codespaces! Your efforts help make this project better for everyone. 🎉

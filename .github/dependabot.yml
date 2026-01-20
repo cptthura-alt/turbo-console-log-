@@ -18,10 +18,20 @@ updates:
     groups:
       production-dependencies:
         dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
       development-dependencies:
         dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
     # Automatically merge minor and patch updates
     versioning-strategy: increase
+    # Commit message prefix
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
 
   # Enable version updates for GitHub Actions
   - package-ecosystem: "github-actions"
@@ -33,3 +43,7 @@ updates:
     labels:
       - "dependencies"
       - "github-actions"
+    # Commit message prefix
+    commit-message:
+      prefix: "chore(ci)"
+      include: "scope"
