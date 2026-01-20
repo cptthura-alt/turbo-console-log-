@@ -3,6 +3,7 @@ let app = express();
 let ejs = require('ejs');
 const haikus = require('./haikus.json');
 const port = process.env.PORT || 3000;
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 console.log('🚀 Initializing Haikus for Codespaces application...');
 console.log('📦 Loading dependencies: Express, EJS');
@@ -12,14 +13,20 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  console.log(`📥 Incoming request: ${req.method} ${req.path} from ${req.ip}`);
+  if (isDevelopment) {
+    console.log(`📥 Incoming request: ${req.method} ${req.path} from ${req.ip}`);
+  }
   res.render('index', {haikus: haikus});
-  console.log(`✅ Successfully rendered ${haikus.length} haikus`);
+  if (isDevelopment) {
+    console.log(`✅ Successfully rendered ${haikus.length} haikus`);
+  }
 });
 
 // 404 handler
 app.use((req, res) => {
-  console.log(`⚠️  404 Not Found: ${req.method} ${req.path} from ${req.ip}`);
+  if (isDevelopment) {
+    console.log(`⚠️  404 Not Found: ${req.method} ${req.path} from ${req.ip}`);
+  }
   res.status(404).send('404 - Page Not Found');
 });
 
@@ -28,7 +35,9 @@ app.use((err, req, res, next) => {
   console.error('❌ Server Error:');
   console.error(`   Path: ${req.method} ${req.path}`);
   console.error(`   Error: ${err.message}`);
-  console.error(`   Stack: ${err.stack}`);
+  if (isDevelopment) {
+    console.error(`   Stack: ${err.stack}`);
+  }
   res.status(500).send('500 - Internal Server Error');
 });
 
