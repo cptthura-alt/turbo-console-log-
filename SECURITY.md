@@ -272,7 +272,7 @@ This security policy may be updated from time to time. We will announce signific
 - Repository README
 - Security advisories (if applicable)
 
-**Last Updated**: 2026-01-11
+**Last Updated**: 2026-01-20
 
 ---
 

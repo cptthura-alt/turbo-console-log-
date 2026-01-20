@@ -112,7 +112,7 @@ This document provides a comprehensive summary of all GitHub security features t
 **Configuration Details**:
 - **npm audit**: Checks for vulnerabilities on every build (moderate level)
 - **Trivy Security Scanner**: Filesystem security scanning for CRITICAL and HIGH severity issues
-- **Node.js Versions Tested**: 16.x, 18.x, 20.x
+- **Node.js Versions Tested**: 18.x, 20.x, 22.x
 
 **What it does**:
 - Runs npm audit to detect vulnerable dependencies
@@ -369,6 +369,6 @@ After full enablement, the repository will have:
 
 ---
 
-**Last Updated**: 2026-01-11  
-**Configuration Version**: 1.0  
+**Last Updated**: 2026-01-20  
+**Configuration Version**: 2.0  
 **Status**: ✅ Workflow files configured, ⚠️ Manual settings required
