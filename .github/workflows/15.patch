@@ -1,0 +1,33 @@
+From 1bfd18686109a867d8e7bc0ec106b6bfc43274ba Mon Sep 17 00:00:00 2001
+From: ThuraNyunt <227908499+cptthura-alt@users.noreply.github.com>
+Date: Tue, 13 Jan 2026 01:13:16 +0700
+Subject: [PATCH] Create my-agent.agent.md
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Copilot would turn your current “Enable GitHub security features” issue into a PR draft
+---
+ .github/agents/my-agent.agent.md | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+ create mode 100644 .github/agents/my-agent.agent.md
+
+diff --git a/.github/agents/my-agent.agent.md b/.github/agents/my-agent.agent.md
+new file mode 100644
+index 0000000..39a8426
+--- /dev/null
++++ b/.github/agents/my-agent.agent.md
+@@ -0,0 +1,13 @@
++---
++# Fill in the fields below to create a basic custom agent for your repository.
++# The Copilot CLI can be used for local testing: https://gh.io/customagents/cli
++# To make this agent available, merge this file into the default repository branch.
++# For format details, see: https://gh.io/customagents/config
++
++name:
++description:
++---
++
++# My Agent
++
++Describe what your agent does here...
