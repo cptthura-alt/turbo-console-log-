@@ -10,6 +10,7 @@
   </head>
   <body>
     <h1>Haikus for Mona</h1>
+    <p class="info-text">A collection of <%= haikus.length %> beautiful haikus</p>
     <div>
       <% for(var i=0; i < haikus.length; i++) { %>
         <img
@@ -23,5 +24,12 @@
         </div>
       <% } %>
     </div>
+    <footer class="footer">
+      <p class="footer-text">
+        🚀 Haikus for Codespaces<br>
+        Built with Express.js & EJS<br>
+        <a href="https://github.com/cptthura-alt/turbo-console-log-" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+      </p>
+    </footer>
   </body>
 </html>

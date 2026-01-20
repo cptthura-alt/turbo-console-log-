@@ -17,7 +17,22 @@ app.get('/', (req, res) => {
   console.log(`✅ Successfully rendered ${haikus.length} haikus`);
 });
 
-app.listen(port, () => {
+// 404 handler
+app.use((req, res) => {
+  console.log(`⚠️  404 Not Found: ${req.method} ${req.path} from ${req.ip}`);
+  res.status(404).send('404 - Page Not Found');
+});
+
+// Error handler
+app.use((err, req, res, next) => {
+  console.error('❌ Server Error:');
+  console.error(`   Path: ${req.method} ${req.path}`);
+  console.error(`   Error: ${err.message}`);
+  console.error(`   Stack: ${err.stack}`);
+  res.status(500).send('500 - Internal Server Error');
+});
+
+const server = app.listen(port, () => {
   console.log('='.repeat(50));
   console.log('✨ Server is running!');
   console.log(`🌐 Local: http://localhost:${port}`);
@@ -26,4 +41,21 @@ app.listen(port, () => {
   console.log(`🎨 Template engine: EJS`);
   console.log('='.repeat(50));
   console.log('Press Ctrl+C to stop the server');
+});
+
+// Graceful shutdown handling
+process.on('SIGTERM', () => {
+  console.log('⚠️  SIGTERM signal received: closing HTTP server');
+  server.close(() => {
+    console.log('✅ HTTP server closed');
+    process.exit(0);
+  });
+});
+
+process.on('SIGINT', () => {
+  console.log('\n⚠️  SIGINT signal received: closing HTTP server');
+  server.close(() => {
+    console.log('✅ HTTP server closed');
+    process.exit(0);
+  });
 });

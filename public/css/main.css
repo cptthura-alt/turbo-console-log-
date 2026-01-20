@@ -9,6 +9,13 @@ body {
     text-align:center;
 }
 
+.info-text {
+    font-size: 16px;
+    color: #a8a8a8;
+    margin-top: -10px;
+    margin-bottom: 30px;
+}
+
 .mona-images {
     max-width: 400px;
     max-height: 400px;
@@ -22,6 +29,27 @@ body {
 .haikus {
     font-size: 18px;
     white-space: pre-wrap;
+}
+
+.footer {
+    margin-top: 40px;
+    padding: 20px;
+    border-top: 1px solid #444;
+}
+
+.footer-text {
+    font-size: 14px;
+    color: #a8a8a8;
+    line-height: 1.6;
+}
+
+.footer-text a {
+    color: #58a6ff;
+    text-decoration: none;
+}
+
+.footer-text a:hover {
+    text-decoration: underline;
 }
 
 @media only screen and (max-width: 600px) {
