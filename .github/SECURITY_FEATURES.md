@@ -59,7 +59,7 @@ This repository has comprehensive security features enabled to protect against v
 - **Features**:
   - npm audit security checks on every build
   - Trivy filesystem security scanning
-  - Multiple Node.js version testing (16.x, 18.x, 20.x)
+  - Multiple Node.js version testing (18.x, 20.x, 22.x) - all current LTS versions
 
 ## Repository Settings to Enable Manually
 

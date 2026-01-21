@@ -68,3 +68,17 @@ body:
       label: Additional Context
       description: Add any other context about the problem here
       placeholder: Any additional information that might help
+      
+  - type: dropdown
+    id: accessibility
+    attributes:
+      label: Accessibility Impact
+      description: Does this bug affect accessibility features or users with disabilities?
+      options:
+        - "No accessibility impact"
+        - "Minor accessibility impact"
+        - "Major accessibility impact"
+        - "Blocks accessibility features"
+        - "Not sure"
+    validations:
+      required: false

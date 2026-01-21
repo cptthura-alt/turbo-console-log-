@@ -43,3 +43,25 @@ body:
       label: Additional Context
       description: Add any other context or screenshots about the feature request
       placeholder: Any additional information that might help
+      
+  - type: dropdown
+    id: security_impact
+    attributes:
+      label: Security Considerations
+      description: Could this feature have security implications?
+      options:
+        - "No security implications"
+        - "Improves security"
+        - "May have security implications (needs review)"
+        - "Not sure"
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to contribute to this feature?
+      options:
+        - label: "I am willing to submit a pull request for this feature"
+          required: false
