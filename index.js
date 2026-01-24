@@ -45,11 +45,15 @@ const server = app.listen(port, () => {
   console.log('='.repeat(50));
   console.log('✨ Server is running!');
   console.log(`🌐 Local: http://localhost:${port}`);
-  console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`📂 Serving static files from: /public`);
-  console.log(`🎨 Template engine: EJS`);
+  if (isDevelopment) {
+    console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`📂 Serving static files from: /public`);
+    console.log(`🎨 Template engine: EJS`);
+  }
   console.log('='.repeat(50));
-  console.log('Press Ctrl+C to stop the server');
+  if (isDevelopment) {
+    console.log('Press Ctrl+C to stop the server');
+  }
 });
 
 // Graceful shutdown handling
