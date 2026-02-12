@@ -36,14 +36,15 @@ npm audit
 
 ## Current Security Posture
 
-### GitHub Security Features (All Enabled)
-- ✅ CodeQL Code Scanning
-- ✅ Dependency Review Action
-- ✅ OpenSSF Scorecards
-- ✅ Dependabot Configuration
-- ✅ CI/CD Security Scanning (npm audit + Trivy)
-- ✅ Security Policy Documentation
+### GitHub Security Features (Recommended Baseline)
 
+The following GitHub security features are recommended for this repository. Refer to the repository Security tab and the configuration documents linked below to confirm which are currently enabled.
+- CodeQL Code Scanning
+- Dependency Review Action
+- OpenSSF Scorecards
+- Dependabot Configuration
+- CI/CD Security Scanning (npm audit + Trivy)
+- Security Policy Documentation
 ### npm Dependencies
 - ✅ 0 vulnerabilities found
 - ✅ All packages up to date with security patches
