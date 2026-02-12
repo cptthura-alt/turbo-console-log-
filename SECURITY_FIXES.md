@@ -8,7 +8,7 @@ This document tracks security vulnerabilities that have been identified and reso
 
 **Issue**: High severity Regular Expression Denial of Service (ReDoS) vulnerability in semver package
 
-**CVE**: [GHSA-c2qf-rxjj-qqgw](https://github.com/advisories/GHSA-c2qf-rxjj-qqgw)
+**Advisory**: [GHSA-c2qf-rxjj-qqgw](https://github.com/advisories/GHSA-c2qf-rxjj-qqgw)
 
 **Severity**: HIGH
 
