@@ -5,7 +5,7 @@
 # For format details, see: https://gh.io/customagents/config
 
 name: my-agent
-description:
+description: A GitHub Copilot agent that assists with repository-specific questions and development tasks.
 ---
 
 # My Agent
