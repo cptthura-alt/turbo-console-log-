@@ -18,7 +18,12 @@ app.use((req, res) => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  // Only log stack traces in development
+  if (process.env.NODE_ENV !== 'production') {
+    console.error(err.stack);
+  } else {
+    console.error(`Error: ${err.message}`);
+  }
   res.status(500).send('500 - Internal Server Error');
 });
 
