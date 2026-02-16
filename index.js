@@ -22,6 +22,11 @@ app.use((err, req, res, next) => {
   res.status(500).send('500 - Internal Server Error');
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+// Only start server if not being required by another module (for testing)
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}
+
+module.exports = app;

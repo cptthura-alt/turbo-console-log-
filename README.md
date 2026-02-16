@@ -16,6 +16,9 @@ npm start
 
 # Development mode with auto-reload
 npm run dev
+
+# Run tests
+npm test
 ```
 
 Then visit http://localhost:3000
@@ -29,7 +32,9 @@ This repository has comprehensive GitHub security features enabled. See [SECURIT
 - ✅ Dependency Review (PR checks for vulnerable dependencies)
 - ✅ OpenSSF Scorecards (security best practices assessment)
 - ✅ Dependabot (automated dependency updates)
-- ✅ CI/CD Security Scanning (npm audit + Trivy)
+- ✅ CI/CD Security Scanning (npm audit + Trivy - fails on vulnerabilities)
+- ✅ XSS Protection (proper output escaping in templates)
+- ✅ Error Handling (404 and 500 error handlers)
 
 **Supported Node.js Versions**: 18.x, 20.x, 22.x (all current LTS versions)
 
