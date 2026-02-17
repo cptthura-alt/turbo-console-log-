@@ -35,7 +35,9 @@ jobs:
       
     - name: Check for security vulnerabilities
       run: npm audit --audit-level=moderate
-      continue-on-error: true
+      
+    - name: Run tests
+      run: npm test
       
     - name: Verify application starts
       run: |
@@ -63,6 +65,6 @@ jobs:
         scan-type: 'fs'
         scan-ref: '.'
         format: 'table'
-        exit-code: '0'
+        exit-code: '1'
         ignore-unfixed: true
         severity: 'CRITICAL,HIGH'
